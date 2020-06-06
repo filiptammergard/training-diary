@@ -28,8 +28,17 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Goal } from "./../models/Goal";
 import { mapState, mapActions } from "vuex";
+
+interface Goal {
+  id: string;
+  date: string;
+  achieved: boolean;
+  duration: number;
+  intensity: number;
+  type: string;
+  uid: string;
+}
 
 export default Vue.extend({
   name: "goalstable",

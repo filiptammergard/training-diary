@@ -2,10 +2,24 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase';
 import { auth, goalsCollection, usersCollection } from "@/firebaseConfig";
-import { Goal } from "./../models/Goal";
-import { User } from './../models/User';
 
 Vue.use(Vuex)
+
+export interface Goal {
+  id: string;
+  date: string;
+  achieved: boolean;
+  duration: number;
+  intensity: number;
+  type: string;
+  uid: string;
+}
+
+export interface User {
+  email: string;
+  uid: string;
+  displayName: string;
+}
 
 export default new Vuex.Store({
   state: {
