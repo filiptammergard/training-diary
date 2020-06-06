@@ -21,11 +21,11 @@
 </template>
 
 <script lang="ts">
-import vue from "vue";
+import Vue from "vue";
 import { mapState, mapActions } from "vuex";
-import { Type } from "@/models/enums/type";
+import { Type } from "../models/enums/Type";
 
-export default vue.extend({
+export default Vue.extend({
   name: "creategoal",
   data() {
     return {
