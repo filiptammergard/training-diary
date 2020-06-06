@@ -1,4 +1,4 @@
-import { Type } from './enums/Type';
+import { Type } from './enums/type';
 
 export interface Goal {
   id: string;
