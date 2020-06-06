@@ -1,0 +1,14 @@
+@import "variables";
+
+#app {
+  background-color: $pink;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.component {
+  margin-bottom: 2rem;
+}
