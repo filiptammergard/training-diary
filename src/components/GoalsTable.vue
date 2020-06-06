@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { Goal } from "@/models/goal";
+import { Goal } from "@/models/Goal";
 import { mapState, mapActions } from "vuex";
 import { auth, goalsCollection } from "@/firebaseConfig";
 
