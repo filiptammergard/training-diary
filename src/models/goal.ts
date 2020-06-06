@@ -6,6 +6,6 @@ export interface Goal {
   achieved: boolean;
   duration: number;
   intensity: number;
-  type: Type;
+  type: string;
   uid: string;
 }
