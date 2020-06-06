@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { mapState, mapActions } from "vuex";
-import { Type } from "@/models/enums/Type";
+import { Type } from "../models/enums/Type";
 
 export default {
   name: "creategoal",
