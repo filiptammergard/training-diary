@@ -62,6 +62,7 @@ export default new Vuex.Store({
     async signIn({ commit, dispatch }) {
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
         const response = await auth.signInWithPopup(provider);
         console.log("Användaren loggades in.", response.user);
         commit("setLoggedInUser", response.user);

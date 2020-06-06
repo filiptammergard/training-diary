@@ -10,12 +10,18 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: {
+      title: "Hem"
+    }
   },
   {
     path: '/auth',
     name: 'Auth',
-    component: () => import('@/views/Auth.vue')
+    component: () => import('@/views/Auth.vue'),
+    meta: {
+      title: "Logga in"
+    }
   }
 ]
 
@@ -37,5 +43,10 @@ router.beforeEach((to, from, next) => {
       next();
   })
 })
+
+router.afterEach(to => {
+  const defaultPageTitle = "Träningsdagbok";
+  document.title = to.meta.title + " | " + defaultPageTitle;
+});
 
 export default router
