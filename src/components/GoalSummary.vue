@@ -9,9 +9,10 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 
-export default {
+export default Vue.extend({
   name: "goalsummary",
   data() {
     return {};
@@ -27,7 +28,7 @@ export default {
   methods: {
     ...mapActions(["createGoal"])
   }
-};
+});
 </script>
 
 <style lang="scss">

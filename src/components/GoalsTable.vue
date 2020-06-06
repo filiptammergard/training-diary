@@ -27,10 +27,11 @@
 </template>
 
 <script lang="ts">
-import { Goal } from "@/models/Goal";
+import Vue from "vue";
+import { Goal } from "./../models/Goal";
 import { mapState, mapActions } from "vuex";
 
-export default {
+export default Vue.extend({
   name: "goalstable",
   data() {
     return {};
@@ -47,7 +48,7 @@ export default {
       this.deleteGoal(goal);
     }
   }
-};
+});
 </script>
 
 <style lang="scss">

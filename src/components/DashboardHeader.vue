@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 
-export default {
+export default Vue.extend({
   name: "dashboardheader",
   data() {
     return {};
@@ -18,7 +19,7 @@ export default {
   methods: {
     ...mapActions([])
   }
-};
+});
 </script>
 
 <style lang="scss">

@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 import { auth } from "@/firebaseConfig";
 
-export default {
+export default Vue.extend({
   name: "signin",
   data() {
     return {};
@@ -22,7 +23,7 @@ export default {
       this.signIn();
     }
   }
-};
+});
 </script>
 
 <style lang="scss">
