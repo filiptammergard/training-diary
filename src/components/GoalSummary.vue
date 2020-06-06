@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { mapState, mapGetters, mapActions } from "vuex";
-import { Type } from "../models/enums/type";
 
 export default {
   name: "goalsummary",

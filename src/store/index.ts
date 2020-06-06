@@ -27,6 +27,7 @@ export default new Vuex.Store({
         if (goal.achieved)
           numberOfAchievedGoals++;
       })
+      if (getters.numberOfGoals == 0) return "-"
       return Math.round(numberOfAchievedGoals / getters.numberOfGoals * 100);
     }
   },
@@ -42,10 +43,10 @@ export default new Vuex.Store({
     async getGoals({ commit }) {
       try {
         goalsCollection.where("uid", "==", this.state.user.uid).orderBy("date").onSnapshot(querySnapshot => {
-          let goals = [] as any;
+          const goals = [] as any;
 
           querySnapshot.forEach(doc => {
-            let goal = {
+            const goal = {
               id: doc.id,
               ...doc.data()
             };
@@ -61,15 +62,19 @@ export default new Vuex.Store({
     async signIn({ commit, dispatch }) {
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
-        const user = await auth.signInWithPopup(provider);
-        console.log("Användare skapad.");
-        commit("setLoggedInUser", user);
-        dispatch("createUser", user);
+        const response = await auth.signInWithPopup(provider);
+        console.log("Användaren loggades in.", response.user);
+        commit("setLoggedInUser", response.user);
+        const doc = await usersCollection.doc(response.user?.uid).get();
+        if (doc.exists)
+          console.log("Användaren finns redan i databasen.")
+        else
+          dispatch("createUser", response.user);
       } catch (error) {
         console.error("Kunde inte skapa användare: ", error);
       }
     },
-    async createUser({ commit }, user: User) {
+    async createUser(context, user: User) {
       try {
         await usersCollection.doc(user.uid).set({
           uid: user.uid,
@@ -81,7 +86,7 @@ export default new Vuex.Store({
         console.error("Kunde inte lägga till användren i databasen: ", error);
       }
     },
-    async logoutUser({ commit }) {
+    async logoutUser() {
       try {
         await auth.signOut();
         console.log("Användaren loggades ut.");
@@ -89,7 +94,7 @@ export default new Vuex.Store({
         console.error("Användaren kunde inte loggas ut: ", error);
       }
     },
-    async createGoal({ commit }, goal: Goal) {
+    async createGoal(context, goal: Goal) {
       try {
         await goalsCollection.add(goal);
         console.log("Mål skapat.");
@@ -97,7 +102,7 @@ export default new Vuex.Store({
         console.error("Kunde inte skapa mål: ", error);
       }
     },
-    async toggleAchieved({ commit }, goal: Goal) {
+    async toggleAchieved(context, goal: Goal) {
       try {
         await goalsCollection.doc(goal.id).update({ achieved: !goal.achieved });
         console.log("Uppnått togglad.")
@@ -105,7 +110,7 @@ export default new Vuex.Store({
         console.error("Kunde inte uppdatera dokumentet: ", error);
       }
     },
-    async deleteGoal({ commit }, goal: Goal) {
+    async deleteGoal(context, goal: Goal) {
       try {
         await goalsCollection.doc(goal.id).delete();
         console.log("Mål borttaget");

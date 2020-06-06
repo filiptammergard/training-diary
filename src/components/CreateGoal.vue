@@ -21,10 +21,11 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 import { Type } from "../models/enums/type";
 
-export default {
+export default Vue.extend({
   name: "creategoal",
   data() {
     return {
@@ -38,8 +39,8 @@ export default {
   },
   methods: {
     ...mapActions(["createGoal"]),
-    createGoalInternal() {
-      let goal = {
+    createGoalInternal(): void {
+      const goal = {
         date: this.date,
         type: this.type,
         duration: this.duration,
@@ -48,7 +49,7 @@ export default {
       this.createGoal(goal);
     }
   }
-};
+});
 </script>
 
 <style lang="scss">
