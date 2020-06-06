@@ -1,7 +1,7 @@
 import firebase from "firebase"
 import 'firebase/firestore'
 
-var config = {
+const config = {
   apiKey: "AIzaSyCjiBLzgUJtlDSHb7W3yCtlnfWruf5-nuc",
   authDomain: "training-diary-6e77f.firebaseapp.com",
   databaseURL: "https://training-diary-6e77f.firebaseio.com",
