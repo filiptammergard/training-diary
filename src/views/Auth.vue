@@ -5,12 +5,13 @@
 </template>
 
 <script>
+import Vue from "vue";
 import SignIn from "@/components/SignIn.vue";
 
-export default {
+export default Vue.extend({
   name: "auth",
   components: {
     SignIn
   }
-};
+});
 </script>
