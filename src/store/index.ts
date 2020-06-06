@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase';
 import { auth, goalsCollection, usersCollection } from "@/firebaseConfig";
-import { Goal } from '@/models/goal';
-import { User } from '@/models/user';
+import { Goal } from '@/models/Goal';
+import { User } from '@/models/User';
 
 Vue.use(Vuex)
 
