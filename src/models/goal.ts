@@ -1,5 +1,3 @@
-import { Type } from './enums/Type';
-
 export interface Goal {
   id: string;
   date: string;
