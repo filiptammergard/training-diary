@@ -1,6 +1,8 @@
 <template>
   <div class="signin-component component">
-    <button class="btn btn-dark" @click="signInInternal">Logga in</button>
+    <div>
+      <button class="btn btn-dark" @click="signInInternal">Logga in</button>
+    </div>
   </div>
 </template>
 
@@ -28,6 +30,9 @@ export default Vue.extend({
 
 <style lang="scss">
 .signin-component {
-  text-align: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

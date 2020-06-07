@@ -1,6 +1,10 @@
 <template>
   <div class="dashboardheader-component component">
-    <h1 class="header">{{ user.displayName }}s träningsdagbok</h1>
+    <nav class="navbar navbar-dark bg-dark justify-content-center">
+      <router-link :to="{ name: 'Dashboard' }" class="nav-link">Veckoliga mål</router-link>
+      <router-link :to="{ name: 'AnnualGoals' }" class="nav-link">Årliga mål</router-link>
+      <span class="nav-link" style="cursor:pointer" @click="logoutUser">Logga ut</span>
+    </nav>
   </div>
 </template>
 
@@ -17,7 +21,7 @@ export default Vue.extend({
     ...mapState(["user"])
   },
   methods: {
-    ...mapActions([])
+    ...mapActions(["logoutUser"])
   }
 });
 </script>

@@ -16,6 +16,14 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: '/annual',
+    name: 'AnnualGoals',
+    component: () => import('@/views/AnnualGoals.vue'),
+    meta: {
+      title: "Årliga mål"
+    }
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import('@/views/Auth.vue'),
