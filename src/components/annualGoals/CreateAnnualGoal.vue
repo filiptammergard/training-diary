@@ -1,22 +1,30 @@
 <template>
   <div class="createannualgoal-component component">
-    <form class="d-flex justify-content-center" @submit.prevent="createGoalInternal()">
-      <select class="form-control mr-3" type="text" v-model="type" placeholder="Typ" required>
-        <option value selected disabled hidden>Välj typ...</option>
-        <option value="run" :disabled="goalExists('run')">Löpning</option>
-        <option value="bicycle" :disabled="goalExists('bicycle')">Cykling</option>
-        <option value="ski" :disabled="goalExists('ski')">Skidåkning</option>
-        <option value="swim" :disabled="goalExists('swim')">Simning</option>
-      </select>
-      <input
-        class="form-control mr-3"
-        type="number"
-        v-model.number="distance"
-        placeholder="Välj distans..."
-        min="1"
-        required
-      />
-      <button class="btn btn-dark" type="submit">Lägg till</button>
+    <form @submit.prevent="createGoalInternal()">
+      <div class="form-row">
+        <div class="col-md mb-3">
+          <select class="form-control" type="text" v-model="type" placeholder="Typ" required>
+            <option value disabled>Välj typ...</option>
+            <option value="run" :disabled="goalExists('run')">Löpning</option>
+            <option value="bicycle" :disabled="goalExists('bicycle')">Cykling</option>
+            <option value="ski" :disabled="goalExists('ski')">Skidåkning</option>
+            <option value="swim" :disabled="goalExists('swim')">Simning</option>
+          </select>
+        </div>
+        <div class="col-md mb-3">
+          <input
+            class="form-control"
+            type="number"
+            v-model.number="numericGoal"
+            placeholder="Ange distans..."
+            min="1"
+            required
+          />
+        </div>
+        <div class="col-m">
+          <button class="btn btn-dark" type="submit">Lägg till</button>
+        </div>
+      </div>
     </form>
   </div>
 </template>
@@ -35,7 +43,7 @@ export default Vue.extend({
   data() {
     return {
       type: "",
-      distance: null
+      numericGoal: null
     };
   },
   computed: {
@@ -46,12 +54,12 @@ export default Vue.extend({
     createGoalInternal(): void {
       this.createAnnualGoal({
         type: this.type,
-        distance: this.distance,
+        numericGoal: this.numericGoal,
         uid: this.user.uid,
         year: this.year
       });
       this.type = "";
-      this.distance = null;
+      this.numericGoal = null;
     },
     goalExists(type: any): boolean {
       const goalsInSameYearWithSameType = this.annualGoals.filter(

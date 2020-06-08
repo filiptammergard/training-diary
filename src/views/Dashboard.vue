@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-view view">
-    <DashboardHeader />
+    <Navbar />
     <div class="container">
       <CalendarPicker />
       <CreateGoal />
@@ -12,7 +12,7 @@
 
 <script>
 import Vue from "vue";
-import DashboardHeader from "@/components/DashboardHeader.vue";
+import Navbar from "@/components/Navbar.vue";
 import CalendarPicker from "@/components/CalendarPicker.vue";
 import CreateGoal from "@/components/CreateGoal.vue";
 import GoalsTable from "@/components/GoalsTable.vue";
@@ -22,7 +22,7 @@ import { mapState, mapActions } from "vuex";
 export default Vue.extend({
   name: "dashboard",
   components: {
-    DashboardHeader,
+    Navbar,
     CalendarPicker,
     CreateGoal,
     GoalsTable,

@@ -1,23 +1,23 @@
 <template>
   <div class="goalstable-component component">
-    <div class="grid-container header center">
-      <p>Typ</p>
-      <p>Tid</p>
-      <p>Uppnått</p>
-      <p></p>
+    <div class="row bold center">
+      <p class="col">Typ</p>
+      <p class="col">Tid</p>
+      <p class="col">Uppnått</p>
+      <p class="col"></p>
     </div>
-    <div class="grid-container center" v-for="goal in goals" :key="goal.id">
-      <p>
+    <div class="row center" v-for="goal in goals" :key="goal.id">
+      <p class="col">
         <i v-if="goal.type === 'run'" class="fas fa-running"></i>
         <i v-else-if="goal.type === 'swim'" class="fas fa-swimmer"></i>
         <i v-else-if="goal.type === 'ski'" class="fas fa-skiing-nordic"></i>
         <i v-else-if="goal.type === 'bicycle'" class="fas fa-biking"></i>
       </p>
-      <p>{{ goal.duration }} min</p>
-      <p>
+      <p class="col">{{ goal.numericGoal }} min</p>
+      <p class="col">
         <input type="checkbox" :checked="goal.achieved" @click="toggleAchievedInternal(goal)" />
       </p>
-      <p>
+      <p class="col">
         <button class="btn btn-danger btn-sm" @click="deleteGoalInternal(goal)">Ta bort</button>
       </p>
     </div>
@@ -30,10 +30,8 @@ import { mapState, mapActions } from "vuex";
 
 interface Goal {
   id: string;
-  date: string;
   achieved: boolean;
-  duration: number;
-  intensity: number;
+  numericGoal: number;
   type: string;
   uid: string;
 }
@@ -57,16 +55,3 @@ export default Vue.extend({
   }
 });
 </script>
-
-<style lang="scss">
-.goalstable-component {
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-  }
-  .header {
-    font-weight: bold;
-  }
-}
-</style>

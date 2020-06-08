@@ -24,6 +24,14 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/Settings.vue'),
+    meta: {
+      title: "Inställningar"
+    }
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import('@/views/Auth.vue'),

@@ -1,6 +1,6 @@
 <template>
   <div class="annualgoals-view view">
-    <DashboardHeader />
+    <Navbar />
     <div class="container">
       <YearPicker />
       <CreateAnnualGoal />
@@ -13,7 +13,7 @@
 
 <script>
 import Vue from "vue";
-import DashboardHeader from "@/components/DashboardHeader.vue";
+import Navbar from "@/components/Navbar.vue";
 import YearPicker from "@/components/annualGoals/YearPicker";
 import CreateAnnualGoal from "@/components/annualGoals/CreateAnnualGoal";
 import AnnualGoalsTable from "@/components/annualGoals/AnnualGoalsTable.vue";
@@ -23,7 +23,7 @@ import { mapState, mapActions } from "vuex";
 export default Vue.extend({
   name: "annualgoals",
   components: {
-    DashboardHeader,
+    Navbar,
     YearPicker,
     CreateAnnualGoal,
     AnnualGoalsTable,

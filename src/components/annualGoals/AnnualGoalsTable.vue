@@ -13,7 +13,7 @@
         <i v-else-if="goal.type === 'ski'" class="fas fa-skiing-nordic"></i>
         <i v-else-if="goal.type === 'bicycle'" class="fas fa-biking"></i>
       </p>
-      <p>{{ goal.distance }} mil</p>
+      <p>{{ goal.numericGoal }} mil</p>
       <p>
         <input type="checkbox" :checked="goal.achieved" @click="toggleAchievedInternal(goal)" />
       </p>
@@ -30,12 +30,9 @@ import { mapState, mapActions } from "vuex";
 
 interface Goal {
   id: string;
-  date: string;
   achieved: boolean;
-  duration: number;
-  intensity: number;
+  numericGoal: number;
   type: string;
-  uid: string;
 }
 
 export default Vue.extend({
