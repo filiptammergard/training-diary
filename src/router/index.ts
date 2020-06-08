@@ -60,9 +60,10 @@ router.beforeEach((to, from, next) => {
   })
 })
 
-router.afterEach(to => {
+router.beforeEach((to, from, next) => {
   const defaultPageTitle = "Träningsdagbok";
   document.title = to.meta.title + " | " + defaultPageTitle;
+  next();
 });
 
 export default router
