@@ -1,22 +1,23 @@
 <template>
   <div class="createannualgoal-component component">
-    <div class="grid-container">
-      <select class="form-control" type="text" v-model="type" placeholder="Typ" required>
-        <option value>Välj typ...</option>
-        <option value="run">Löpning</option>
-        <option value="bicycle">Cykling</option>
-        <option value="ski">Skidåkning</option>
-        <option value="swim">Simning</option>
+    <form class="d-flex justify-content-center" @submit.prevent="createGoalInternal()">
+      <select class="form-control mr-3" type="text" v-model="type" placeholder="Typ" required>
+        <option value selected disabled hidden>Välj typ...</option>
+        <option value="run" :disabled="goalExists('run')">Löpning</option>
+        <option value="bicycle" :disabled="goalExists('bicycle')">Cykling</option>
+        <option value="ski" :disabled="goalExists('ski')">Skidåkning</option>
+        <option value="swim" :disabled="goalExists('swim')">Simning</option>
       </select>
       <input
-        class="form-control"
+        class="form-control mr-3"
         type="number"
         v-model.number="distance"
         placeholder="Välj distans..."
+        min="1"
         required
       />
-      <button class="btn btn-dark" @click="createGoalInternal()">Lägg till</button>
-    </div>
+      <button class="btn btn-dark" type="submit">Lägg till</button>
+    </form>
   </div>
 </template>
 
@@ -24,17 +25,21 @@
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 
+interface Goal {
+  year: number;
+  type: string;
+}
+
 export default Vue.extend({
   name: "createannualgoal",
   data() {
     return {
-      date: "",
       type: "",
       distance: null
     };
   },
   computed: {
-    ...mapState(["user", "year"])
+    ...mapState(["user", "year", "annualGoals"])
   },
   methods: {
     ...mapActions(["createAnnualGoal"]),
@@ -45,17 +50,21 @@ export default Vue.extend({
         uid: this.user.uid,
         year: this.year
       });
+      this.type = "";
+      this.distance = null;
+    },
+    goalExists(type: any): boolean {
+      const goalsInSameYearWithSameType = this.annualGoals.filter(
+        (goal: Goal) => goal.year === this.year && goal.type === type
+      );
+
+      if (
+        goalsInSameYearWithSameType == undefined ||
+        goalsInSameYearWithSameType.length == 0
+      )
+        return false;
+      return true;
     }
   }
 });
 </script>
-
-<style lang="scss">
-.createannualgoal-component {
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
-</style>

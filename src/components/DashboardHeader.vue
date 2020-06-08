@@ -1,6 +1,6 @@
 <template>
   <div class="dashboardheader-component component">
-    <nav class="navbar navbar-dark bg-dark justify-content-center">
+    <nav class="navbar navbar-dark bg-dark d-flex justify-content-center">
       <router-link :to="{ name: 'Dashboard' }" class="nav-link">Veckoliga mål</router-link>
       <router-link :to="{ name: 'AnnualGoals' }" class="nav-link">Årliga mål</router-link>
       <span class="nav-link" style="cursor:pointer" @click="logoutUser">Logga ut</span>
@@ -25,11 +25,3 @@ export default Vue.extend({
   }
 });
 </script>
-
-<style lang="scss">
-.dashboardheader-component {
-  .header {
-    text-align: center;
-  }
-}
-</style>

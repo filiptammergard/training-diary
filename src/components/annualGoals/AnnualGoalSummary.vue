@@ -1,6 +1,6 @@
 <template>
   <div class="annualgoalsummary-component component">
-    <div class="grid-container">
+    <div class="d-flex justify-content-between">
       <p>Antal mål: {{ numberOfGoals }}</p>
       <p>Total tid: {{ totalGoalDuration }} min</p>
       <p>Andel uppnådda mål: {{ achievedGoalsPercentage }} %</p>
@@ -28,14 +28,3 @@ export default Vue.extend({
   methods: {}
 });
 </script>
-
-<style lang="scss">
-.annualgoalsummary-component {
-  .grid-container {
-    font-weight: bold;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
-</style>

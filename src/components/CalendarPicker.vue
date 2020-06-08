@@ -1,9 +1,19 @@
 <template>
   <div class="calendarpicker-component component center">
-    <div class="grid-container">
-      <button class="btn btn-dark" @click="previousWeek()">Föregåede vecka</button>
+    <div class="d-flex justify-content-center">
+      <div></div>
+      <button class="btn btn-dark" @click="setCalendar(new Date())">Nuvarande vecka</button>
+      <div></div>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-dark mr-3" @click="previousWeek()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
       <h4>Vecka {{ calendar.week }}</h4>
-      <button class="btn btn-dark" @click="nextWeek()">Nästa vecka</button>
+      <button class="btn btn-dark ml-3" @click="nextWeek()">
+        <i class="fas fa-arrow-right"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -21,17 +31,7 @@ export default Vue.extend({
     ...mapState(["calendar"])
   },
   methods: {
-    ...mapActions(["previousWeek", "nextWeek"])
+    ...mapActions(["previousWeek", "nextWeek", "setCalendar"])
   }
 });
 </script>
-
-<style lang="scss">
-.calendarpicker-component {
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
-</style>

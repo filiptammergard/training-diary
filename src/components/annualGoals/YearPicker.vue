@@ -1,9 +1,19 @@
 <template>
   <div class="yearpicker-component component center">
-    <div class="grid-container">
-      <button class="btn btn-dark" @click="previousYear()">Föregåede år</button>
+    <div class="d-flex justify-content-center">
+      <div></div>
+      <button class="btn btn-dark" @click="setYear(new Date().getFullYear())">Nuvarande år</button>
+      <div></div>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-dark mr-3" @click="previousYear()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
       <h4>År {{ year }}</h4>
-      <button class="btn btn-dark" @click="nextYear()">Nästa år</button>
+      <button class="btn btn-dark ml-3" @click="nextYear()">
+        <i class="fas fa-arrow-right"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -21,17 +31,7 @@ export default Vue.extend({
     ...mapState(["year"])
   },
   methods: {
-    ...mapActions(["previousYear", "nextYear"])
+    ...mapActions(["previousYear", "nextYear", "setYear"])
   }
 });
 </script>
-
-<style lang="scss">
-.yearpicker-component {
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
-</style>
