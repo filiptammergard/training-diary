@@ -19,7 +19,6 @@ export default Vue.extend({
     Navbar,
     SettingsForm
   },
-  created() {},
   computed: {
     ...mapState([])
   },

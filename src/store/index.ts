@@ -113,7 +113,7 @@ export default new Vuex.Store({
 
         const goals = [] as any;
         response.forEach(doc => {
-          let goal = {
+          const goal = {
             id: doc.id,
             ...doc.data()
           }
@@ -132,7 +132,7 @@ export default new Vuex.Store({
 
         const goals = [] as any;
         response.forEach(doc => {
-          let goal = {
+          const goal = {
             id: doc.id,
             ...doc.data()
           }
