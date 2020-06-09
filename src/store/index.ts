@@ -245,24 +245,16 @@ export default new Vuex.Store({
       const year = this.state.year + 1;
       this.dispatch("setYear", year);
     },
-    async saveQuantityAndUnitForWeek({ commit }, payload) {
+    async saveQuantityAndUnit({ commit }, payload) {
       try {
-        await settingsCollection.doc(payload.userid).set({
-          unitAndQuantityForWeek: payload
+        await settingsCollection.doc(payload.uid).set({
+          ...payload
         });
         console.log("Storhet och enhet för vecka sparade.");
       } catch (error) {
         console.error("Kunde inte spara storhet och enhet för vecka: ", error);
       }
     },
-    async saveQuantityAndUnitForYear({ commit }, settings) {
-      try {
-        await settingsCollection.doc("weeklyGoalsQuantityAndUnit").set(settings);
-        console.log("Storhet och enhet för vecka sparade.");
-      } catch (error) {
-        console.error("Kunde inte spara storhet och enhet för vecka: ", error);
-      }
-    }
   },
   modules: {
   }
