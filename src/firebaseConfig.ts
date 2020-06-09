@@ -20,12 +20,15 @@ const auth = firebase.auth()
 const usersCollection = db.collection('users')
 const goalsCollection = db.collection('goals')
 const annualGoalsCollection = db.collection('annual-goals')
+const settingsCollection = db.collection('settings')
+
 
 export {
   db,
   auth,
   usersCollection,
   goalsCollection,
-  annualGoalsCollection
+  annualGoalsCollection,
+  settingsCollection
 }
 

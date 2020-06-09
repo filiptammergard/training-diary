@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase';
 import moment from 'moment';
-import { auth, goalsCollection, annualGoalsCollection, usersCollection } from "@/firebaseConfig";
+import { auth, goalsCollection, annualGoalsCollection, usersCollection, settingsCollection } from "@/firebaseConfig";
 
 Vue.use(Vuex)
 
@@ -245,6 +245,24 @@ export default new Vuex.Store({
       const year = this.state.year + 1;
       this.dispatch("setYear", year);
     },
+    async saveQuantityAndUnitForWeek({ commit }, payload) {
+      try {
+        await settingsCollection.doc(payload.userid).set({
+          unitAndQuantityForWeek: payload
+        });
+        console.log("Storhet och enhet för vecka sparade.");
+      } catch (error) {
+        console.error("Kunde inte spara storhet och enhet för vecka: ", error);
+      }
+    },
+    async saveQuantityAndUnitForYear({ commit }, settings) {
+      try {
+        await settingsCollection.doc("weeklyGoalsQuantityAndUnit").set(settings);
+        console.log("Storhet och enhet för vecka sparade.");
+      } catch (error) {
+        console.error("Kunde inte spara storhet och enhet för vecka: ", error);
+      }
+    }
   },
   modules: {
   }
