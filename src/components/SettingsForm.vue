@@ -9,6 +9,7 @@
             v-model="quantityForWeek"
             placeholder="Typ"
             required
+            @change="getValidUnitsForQuantity(quantityForWeek)"
           >
             <option value disabled>Välj storhet för veckoliga mål...</option>
             <option value="time">Tid</option>
@@ -26,12 +27,7 @@
             :disabled="quantityForWeekNotChosen"
           >
             <option value disabled>Välj enhet för veckoliga mål...</option>
-            <option value="min" :hidden="isInvalidUnitForWeek('min')">min</option>
-            <option value="h" :hidden="isInvalidUnitForWeek('h')">h</option>
-            <option value="km" :hidden="isInvalidUnitForWeek('km')">km</option>
-            <option value="mil" :hidden="isInvalidUnitForWeek('mil')">mil</option>
-            <option value="kcal" :hidden="isInvalidUnitForWeek('kcal')">kcal</option>
-            <option value="kJ" :hidden="isInvalidUnitForWeek('kJ')">kJ</option>
+            <option v-for="unit in units" :value="unit">{{ unit }}</option>
           </select>
         </div>
         <div class="col-m">
@@ -51,7 +47,8 @@ export default Vue.extend({
   data() {
     return {
       quantityForWeek: "",
-      unitForWeek: ""
+      unitForWeek: "",
+      units: [] as any
     };
   },
   computed: {
@@ -63,20 +60,10 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions([]),
-    isInvalidUnitForWeek(unit: string) {
-      if (this.quantityForWeek === "time" && (unit === "min" || unit === "h"))
-        return false;
-      else if (
-        this.quantityForWeek === "distance" &&
-        (unit === "km" || unit === "mil")
-      )
-        return false;
-      else if (
-        this.quantityForWeek === "calories" &&
-        (unit === "kcal" || unit === "kJ")
-      )
-        return false;
-      return true;
+    getValidUnitsForQuantity(quantityForWeek: string) {
+      if (quantityForWeek === "time") this.units = ["min", "h"];
+      else if (quantityForWeek === "distance") this.units = ["km", "mil"];
+      else if (this.quantityForWeek === "calories") this.units = ["kcal", "kJ"];
     }
   }
 });
