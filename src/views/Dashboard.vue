@@ -17,6 +17,7 @@ import CalendarPicker from "@/components/CalendarPicker.vue";
 import CreateGoal from "@/components/CreateGoal.vue";
 import GoalsTable from "@/components/GoalsTable.vue";
 import GoalSummary from "@/components/GoalSummary.vue";
+import moment from "moment";
 import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
@@ -29,14 +30,18 @@ export default Vue.extend({
     GoalSummary
   },
   created() {
-    this.setCalendar(new Date());
+    const thursdayOfCurrentWeek = moment()
+      .day("Thursday")
+      .toDate();
+    this.setCalendar(thursdayOfCurrentWeek);
+    this.initSettingsListener();
     this.initGoalsListener();
   },
   computed: {
     ...mapState([])
   },
   methods: {
-    ...mapActions(["initGoalsListener", "setCalendar"])
+    ...mapActions(["initGoalsListener", "setCalendar", "initSettingsListener"])
   }
 });
 </script>

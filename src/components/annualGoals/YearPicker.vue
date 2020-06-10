@@ -2,7 +2,7 @@
   <div class="yearpicker-component component center">
     <div class="d-flex justify-content-center">
       <div></div>
-      <button class="btn btn-dark" @click="setYear(new Date().getFullYear())">Nuvarande år</button>
+      <h4>År {{ year }}</h4>
       <div></div>
     </div>
     <br />
@@ -10,7 +10,7 @@
       <button class="btn btn-dark mr-3" @click="previousYear()">
         <i class="fas fa-arrow-left"></i>
       </button>
-      <h4>År {{ year }}</h4>
+      <button class="btn btn-dark" @click="setYear(new Date().getFullYear())">Nuvarande år</button>
       <button class="btn btn-dark ml-3" @click="nextYear()">
         <i class="fas fa-arrow-right"></i>
       </button>

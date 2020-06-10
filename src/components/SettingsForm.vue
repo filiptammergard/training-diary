@@ -3,12 +3,13 @@
     <form @submit.prevent="saveQuantityAndUnitInternal()" class="mb-3">
       <div class="form-row mb-3">
         <div class="col-md">
+          <label for="weekQuantity">Storhet för veckoliga mål</label>
           <select
             class="form-control"
             type="text"
             v-model="quantityForWeek"
-            placeholder="Typ"
             required
+            id="weekQuantity"
           >
             <option value disabled>Välj storhet för veckoliga mål...</option>
             <option value="Tid">Tid</option>
@@ -17,6 +18,7 @@
           </select>
         </div>
         <div class="col-md">
+          <label for="weekUnit">Enhet för veckoliga mål</label>
           <select
             class="form-control"
             type="text"
@@ -24,6 +26,7 @@
             placeholder="Typ"
             required
             :disabled="quantityForWeekNotChosen"
+            id="weekUnit"
           >
             <option value disabled>Välj enhet för veckoliga mål...</option>
             <option
@@ -37,7 +40,14 @@
 
       <div class="form-row mb-3">
         <div class="col-md">
-          <select class="form-control" type="text" v-model="quantityForYear" required>
+          <label for="yearQuantity">Storhet för årliga mål</label>
+          <select
+            class="form-control"
+            type="text"
+            v-model="quantityForYear"
+            required
+            id="yearQuantity"
+          >
             <option value disabled>Välj storhet för årliga mål...</option>
             <option value="Tid">Tid</option>
             <option value="Distans">Distans</option>
@@ -45,12 +55,14 @@
           </select>
         </div>
         <div class="col-md">
+          <label for="yearUnit">Enhet för årliga mål</label>
           <select
             class="form-control"
             type="text"
             v-model="unitForYear"
             required
             :disabled="quantityForYearNotChosen"
+            id="yearUnit"
           >
             <option value disabled>Välj enhet för årliga mål...</option>
             <option
@@ -85,7 +97,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "settings"]),
     quantityForWeekNotChosen() {
       if (this.quantityForWeek === "") return true;
       return false;
@@ -95,10 +107,23 @@ export default Vue.extend({
       return false;
     }
   },
+  async created() {
+    if (this.settings.length) {
+      this.quantityForWeek = this.settings.weekGoal.quantity;
+      this.unitForWeek = this.settings.weekGoal.unit;
+      this.quantityForYear = this.settings.yearGoal.quantity;
+      this.unitForYear = this.settings.yearGoal.unit;
+    } else {
+      await this.getSettings();
+      this.quantityForWeek = this.settings.weekGoal.quantity;
+      this.unitForWeek = this.settings.weekGoal.unit;
+      this.quantityForYear = this.settings.yearGoal.quantity;
+      this.unitForYear = this.settings.yearGoal.unit;
+    }
+  },
   methods: {
-    ...mapActions(["saveQuantityAndUnit"]),
+    ...mapActions(["saveSettings", "getSettings"]),
     unitsForQuantity(quantity: string) {
-      console.log(quantity);
       if (quantity === "Tid") return ["min", "h"];
       else if (quantity === "Distans") return ["km", "mil"];
       else if (quantity === "Kalorier") return ["kcal", "kJ"];
@@ -115,7 +140,7 @@ export default Vue.extend({
         },
         uid: this.user.uid
       };
-      this.saveQuantityAndUnit(payload);
+      this.saveSettings(payload);
     }
   }
 });

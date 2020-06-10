@@ -3,8 +3,9 @@
     <form @submit.prevent="createGoalInternal()">
       <div class="form-row">
         <div class="col-md mb-3">
+          <label for="quantoty">Välj träningsform</label>
           <select class="form-control" type="text" v-model="type" placeholder="Typ" required>
-            <option value disabled>Välj typ...</option>
+            <option value disabled>Välj träningsform...</option>
             <option value="run" :disabled="goalExists('run')">Löpning</option>
             <option value="bicycle" :disabled="goalExists('bicycle')">Cykling</option>
             <option value="ski" :disabled="goalExists('ski')">Skidåkning</option>
@@ -12,18 +13,29 @@
           </select>
         </div>
         <div class="col-md mb-3">
-          <input
-            class="form-control"
-            type="number"
-            v-model.number="numericGoal"
-            placeholder="Ange tid..."
-            min="1"
-            required
-          />
+          <label
+            for="unit"
+          >Ange {{ settings.weekGoal != undefined ? settings.weekGoal.quantity.toLowerCase() : "" }}</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="number"
+              v-model.number="numericGoal"
+              :placeholder="settings.weekGoal != undefined ? 'Ange ' + settings.weekGoal.quantity.toLowerCase() + '...' : ''"
+              min="1"
+              required
+              id="unit"
+            />
+            <div class="input-group-append">
+              <div
+                class="input-group-text"
+              >{{ settings.weekGoal != undefined ? settings.weekGoal.unit : "" }}</div>
+            </div>
+          </div>
         </div>
-        <div class="col-m">
-          <button class="btn btn-dark" type="submit">Lägg till</button>
-        </div>
+      </div>
+      <div class="col-m">
+        <button class="btn btn-dark" type="submit">Lägg till träningsmål</button>
       </div>
     </form>
   </div>
@@ -48,7 +60,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState(["user", "calendar", "goals"])
+    ...mapState(["user", "calendar", "goals", "settings"])
   },
   methods: {
     ...mapActions(["createGoal"]),
@@ -60,7 +72,9 @@ export default Vue.extend({
         fullDate: this.calendar.fullDate,
         week: this.calendar.week,
         month: this.calendar.month,
-        year: this.calendar.year
+        year: this.calendar.year,
+        unit: this.settings.weekGoal.unit,
+        quantity: this.settings.weekGoal.quantity.toLowerCase()
       });
       this.type = "";
       this.numericGoal = null;

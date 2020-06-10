@@ -3,8 +3,16 @@
     <form @submit.prevent="createGoalInternal()">
       <div class="form-row">
         <div class="col-md mb-3">
-          <select class="form-control" type="text" v-model="type" placeholder="Typ" required>
-            <option value disabled>Välj typ...</option>
+          <label for="type">Välj träningsform</label>
+          <select
+            class="form-control"
+            type="text"
+            v-model="type"
+            placeholder="Typ"
+            required
+            id="type"
+          >
+            <option value disabled>Välj träningsform...</option>
             <option value="run" :disabled="goalExists('run')">Löpning</option>
             <option value="bicycle" :disabled="goalExists('bicycle')">Cykling</option>
             <option value="ski" :disabled="goalExists('ski')">Skidåkning</option>
@@ -12,18 +20,29 @@
           </select>
         </div>
         <div class="col-md mb-3">
-          <input
-            class="form-control"
-            type="number"
-            v-model.number="numericGoal"
-            placeholder="Ange distans..."
-            min="1"
-            required
-          />
+          <label
+            for="distance"
+          >Ange {{ settings.yearGoal != undefined ? settings.yearGoal.quantity.toLowerCase() : "" }}</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="number"
+              v-model.number="numericGoal"
+              :placeholder="settings.yearGoal != undefined ? 'Ange ' + settings.yearGoal.quantity.toLowerCase() + '...' : ''"
+              min="1"
+              required
+              id="distance"
+            />
+            <div class="input-group-append">
+              <div
+                class="input-group-text"
+              >{{ settings.yearGoal != undefined ? settings.yearGoal.unit : "" }}</div>
+            </div>
+          </div>
         </div>
-        <div class="col-m">
-          <button class="btn btn-dark" type="submit">Lägg till</button>
-        </div>
+      </div>
+      <div class="col-m">
+        <button class="btn btn-dark" type="submit">Lägg till träningsmål</button>
       </div>
     </form>
   </div>
@@ -47,7 +66,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState(["user", "year", "annualGoals"])
+    ...mapState(["user", "year", "annualGoals", "settings"])
   },
   methods: {
     ...mapActions(["createAnnualGoal"]),
@@ -55,6 +74,8 @@ export default Vue.extend({
       this.createAnnualGoal({
         type: this.type,
         numericGoal: this.numericGoal,
+        unit: this.settings.yearGoal.unit,
+        quantity: this.settings.yearGoal.quantity.toLowerCase(),
         uid: this.user.uid,
         year: this.year
       });

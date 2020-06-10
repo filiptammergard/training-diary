@@ -6,7 +6,6 @@
       <CreateAnnualGoal />
       <AnnualGoalsTable />
       <GoalSummary />
-      <button class="btn btn-dark" hidden="true" @click="logoutUser">Logga ut</button>
     </div>
   </div>
 </template>
@@ -32,12 +31,17 @@ export default Vue.extend({
   created() {
     this.setYear(new Date().getFullYear());
     this.initAnnualGoalsListener();
+    this.initSettingsListener();
   },
   computed: {
     ...mapState([])
   },
   methods: {
-    ...mapActions(["initAnnualGoalsListener", "logoutUser", "setYear"])
+    ...mapActions([
+      "initAnnualGoalsListener",
+      "setYear",
+      "initSettingsListener"
+    ])
   }
 });
 </script>

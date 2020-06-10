@@ -40,7 +40,8 @@ export default new Vuex.Store({
     goals: [] as Goal[],
     annualGoals: [] as Goal[],
     calendar: {} as Calendar,
-    year: 0
+    year: 0,
+    settings: {} as any,
   },
   getters: {
     numberOfGoals: state => {
@@ -75,7 +76,7 @@ export default new Vuex.Store({
       const newDate: Calendar = {
         fullDate: moment(date).toDate(),
         date: moment(date).date(),
-        week: moment(date).week(),
+        week: moment(date).isoWeek(),
         month: moment(date).month(),
         year: moment(date).year()
       }
@@ -83,6 +84,9 @@ export default new Vuex.Store({
     },
     setYear(state, year) {
       state.year = year;
+    },
+    setSettings(state, settings) {
+      state.settings = settings;
     }
   },
   actions: {
@@ -245,14 +249,34 @@ export default new Vuex.Store({
       const year = this.state.year + 1;
       this.dispatch("setYear", year);
     },
-    async saveQuantityAndUnit({ commit }, payload) {
+    async initSettingsListener() {
       try {
-        await settingsCollection.doc(payload.uid).set({
-          ...payload
+        settingsCollection.doc(this.state.user.uid).onSnapshot(() => {
+          console.log("Lyssnaren efter inställningar vaknade.");
+          this.dispatch("getSettings");
         });
-        console.log("Storhet och enhet för vecka sparade.");
       } catch (error) {
-        console.error("Kunde inte spara storhet och enhet för vecka: ", error);
+        console.error("Kunde inte lyssna efter inställningar: ", error);
+      }
+    },
+    async getSettings({ commit }) {
+      try {
+        const response = await settingsCollection.doc(this.state.user.uid).get();
+        commit("setSettings", response.data());
+        console.log("Inställningar hämtade: ", response.data());
+      } catch (error) {
+        console.error("Kunde inte spara inställningar: ", error);
+      }
+    },
+    async saveSettings({ commit }, settings) {
+      try {
+        await settingsCollection.doc(settings.uid).set({
+          ...settings
+        });
+        commit("setSettings", settings);
+        console.log("Inställningar sparade.");
+      } catch (error) {
+        console.error("Kunde inte spara inställningar: ", error);
       }
     },
   },
