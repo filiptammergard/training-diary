@@ -262,8 +262,26 @@ export default new Vuex.Store({
     async getSettings({ commit }) {
       try {
         const response = await settingsCollection.doc(this.state.user.uid).get();
-        commit("setSettings", response.data());
-        console.log("Inställningar hämtade: ", response.data());
+        if (response.exists) {
+          commit("setSettings", response.data());
+          console.log("Inställningar hämtade: ", response.data());
+        }
+        else {
+          const defaultSettings = {
+            weekGoal: {
+              quantity: "Distans",
+              unit: "mil"
+            },
+            yearGoal: {
+              quantity: "Distans",
+              unit: "mil"
+            },
+            uid: this.state.user.uid,
+          }
+          await settingsCollection.doc(this.state.user.uid).set({ ...defaultSettings });
+          commit("setSettings", defaultSettings);
+          console.log("Standardinställningar satta: ", defaultSettings);
+        }
       } catch (error) {
         console.error("Kunde inte spara inställningar: ", error);
       }
@@ -274,7 +292,7 @@ export default new Vuex.Store({
           ...settings
         });
         commit("setSettings", settings);
-        console.log("Inställningar sparade.");
+        console.log("Inställningar sparade: ", settings);
       } catch (error) {
         console.error("Kunde inte spara inställningar: ", error);
       }

@@ -32,6 +32,14 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: '/statistics',
+    name: 'Statistics',
+    component: () => import('@/views/Statistics.vue'),
+    meta: {
+      title: "Statistik"
+    }
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import('@/views/Auth.vue'),

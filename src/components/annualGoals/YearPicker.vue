@@ -2,7 +2,7 @@
   <div class="yearpicker-component component center">
     <div class="d-flex justify-content-center">
       <div></div>
-      <h4>År {{ year }}</h4>
+      <h2>År {{ year }}</h2>
       <div></div>
     </div>
     <br />

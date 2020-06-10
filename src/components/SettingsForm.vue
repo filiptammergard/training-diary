@@ -1,5 +1,6 @@
 <template>
   <div class="settingsform-component component">
+    <h2>Storheter och enheter</h2>
     <form @submit.prevent="saveQuantityAndUnitInternal()" class="mb-3">
       <div class="form-row mb-3">
         <div class="col-md">

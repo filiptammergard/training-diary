@@ -2,7 +2,7 @@
   <div class="calendarpicker-component component center">
     <div class="d-flex justify-content-center">
       <div></div>
-      <h4>Vecka {{ calendar.week }} år {{ calendar.year }}</h4>
+      <h2>Vecka {{ calendar.week }} år {{ calendar.year }}</h2>
       <div></div>
     </div>
     <br />

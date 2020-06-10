@@ -1,9 +1,8 @@
 <template>
-  <div class="settings-view view">
+  <div class="statistics-view view">
     <Navbar />
     <div class="container">
-      <StravaConnect />
-      <SettingsForm />
+      <GoalComparison />
     </div>
   </div>
 </template>
@@ -11,16 +10,14 @@
 <script>
 import Vue from "vue";
 import Navbar from "@/components/Navbar";
-import SettingsForm from "@/components/SettingsForm";
-import StravaConnect from "@/components/strava/StravaConnect";
+import GoalComparison from "@/components/statistics/GoalComparison";
 import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
-  name: "settings",
+  name: "statistics",
   components: {
     Navbar,
-    SettingsForm,
-    StravaConnect
+    GoalComparison
   },
   computed: {
     ...mapState([])
