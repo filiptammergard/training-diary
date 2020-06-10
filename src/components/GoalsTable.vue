@@ -19,7 +19,9 @@
           <input type="checkbox" :checked="goal.achieved" @click="toggleAchievedInternal(goal)" />
         </p>
         <p class="col">
-          <button class="btn btn-danger btn-sm" @click="deleteGoalInternal(goal)">Ta bort</button>
+          <button class="btn btn-danger btn-sm" @click="deleteGoalInternal(goal)">
+            <i class="fas fa-trash"></i>
+          </button>
         </p>
       </div>
     </div>
